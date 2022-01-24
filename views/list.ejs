@@ -1,47 +1,52 @@
 <%- include("header") -%>
 
-  <div class="box" id="heading">
-    <h1>To_Do List </h1>
-  </div>
+<div class="box" id="heading">
+  <h1>To_Do List </h1>
+</div>
 
-  <div id="use">
-    <form class="" action="/about" method="get">
-      <button type="submit" name="button">How To Use</button>
-    </form>
-  </div>
+<div id="use">
+  <form class="" action="/about" method="get">
+    <button type="submit" name="button">How To Use</button>
+  </form>
+</div>
 
-  <div class="box">
-    <div class="">
-      <p>
-        Welcome To Your To-Do List !!!
-        </p>
-    </div>
-    <% itemsName.forEach(function(solo){ %>
+<div class="box">
+  <div class="welcome">
+    <p>
+      Welcome To Your To-Do List !!!
+    </p>
+  </div>
+  <% itemsName.forEach(function(solo){ %>
   <form class="" action="/delete" method="post">
     <div class="item">
-      <select class="" name="priority" onchange="">
-        <option value="valueA">A</option>
-        <option value="valueB">B</option>
-        <option value="valueC">C</option>
-        <option value="valueD">D</option>
-        <option value="valueE">E</option>
-        <option value="valueX">X</option>
-      </select>
-          <p> <%= solo.name %> </p>
+      <p> <%= solo.name %> </p>
       <div id="trash">
-      <button type="submit" name="trashit" value="<%= solo._id %>"><i class="fas fa-trash fa-1x"></i></button>
+        <button type="submit" name="trashit" value="<%= solo._id %>"><i class="fas fa-trash fa-1x"></i></button>
+      </div>
     </div>
-    </div>
-      </form>
+  </form>
   <%  }); %>
-      <form class="item" action="/" method="post">
-        <input type="text" name="newTask" placeholder="New Item" autocomplete="off" required>
-        <div id="add">
-          <button type="submit" name="task" value=""><i class="fas fa-plus"></i></button>
-        </div>
-      </form>
-      <p class="pending"> You have 0 pending tasks</p>
-  </div>
-
+  <form class="item" action="/" method="post">
+    <input type="text" name="newTask" placeholder="New Item" autocomplete="off" required>
+    <div id="add">
+      <button type="submit" name="task" value=""><i class="fas fa-plus"></i></button>
+    </div>
+  </form>
+  <p class="pending"> You have <%= itemsLength %> pending tasks</p>
+</div>
+<script type="text/javascript">
+  document.querySelector("html").addEventListener("click", function() {
+    var color = ["#7A0BC0", "#FFC600", "#FF6363", "#1572A1", "#FF7F3F", "#116530"];
+    var numberOfColor = color.length;
+    var randomNumber = Math.floor(Math.random() * numberOfColor);
+    var randomColor = color[randomNumber];
+    let selectColor = String(randomColor);
+    // console.log(selectColor);
+    let docStyle = getComputedStyle(document.documentElement);
+    let myVarVal = docStyle.getPropertyValue('--primary-color');
+    let mainColor = document.querySelector("html");
+    mainColor.style.setProperty('--primary-color', selectColor);
+  });
+</script>
 
 <%- include("footer") -%>

@@ -1,66 +1,46 @@
 <%- include("header") -%>
 
-  <div class="box" id="heading">
-    <h1>How To Use </h1>
-  </div>
+<div class="box" id="heading">
+  <h1>How To Use </h1>
+</div>
 
-  <div id="use">
-    <form class="" action="/" method="get">
-      <button type="submit" name="button">Back To List</button>
-    </form>
-  </div>
+<div id="use">
+  <form class="" action="/" method="get">
+    <button type="submit" name="button">Back To List</button>
+  </form>
+</div>
 
-  <div class="box">
+<div class="box">
 
-    <div class="item">
-      <p>Hit this to add a new item --<strong>></strong></p>
-      <div id="add">
-        <button type="" name="list" value=""><i class="fas fa-plus"></i></button>
-      </div>
+  <div class="item">
+    <p>Hit this to add a new item --<strong>></strong></p>
+    <div id="add">
+      <button type="" name="list" value=""><i class="fas fa-plus"></i></button>
     </div>
+  </div>
 
-    <div class="item">
+  <div class="item">
     <p>Hit this to delete an item --<strong>></strong></p>
     <div id="trash">
-    <button type="" name="list" value=""><i class="fas fa-trash fa-1x"></i></button>
+      <button type="" name="list" value=""><i class="fas fa-trash fa-1x"></i></button>
+    </div>
   </div>
 </div>
 
-<div class="item">
-  <p>Select this to prioritize a task --<strong>></strong></p>
-  <div id="add">
-    <select >
-      <option value="">A</option>
-      <option value="">B</option>
-      <option value="">C</option>
-      <option value="">D</option>
-      <option value="">E</option>
-      <option value="">X</option>
-    </select>
-  </div>
-</div>
-
-<div class="item">
-<p><strong>A</strong>= Highest Priority Task.</p>
-</div>
-<div class="item">
-<p><strong>B</strong>= Medium Priority Task.</p>
-</div>
-<div class="item">
-<p><strong>C</strong>= Lowest Priority Task.</p>
-</div>
-<div class="item">
-<p><strong>D</strong>= Delegate Task.</p>
-</div>
-<div class="item">
-<p><strong>E</strong>= Eliminate Task.</p>
-</div>
-<div class="item">
-<p><strong>X</strong>= Completed Task.</p>
-</div>
-
-
-  </div>
+<script type="text/javascript">
+  document.querySelector("html").addEventListener("click", function() {
+    var color = ["#7A0BC0", "#FFC600", "#FF6363", "#1572A1", "#FF7F3F", "#116530"];
+    var numberOfColor = color.length;
+    var randomNumber = Math.floor(Math.random() * numberOfColor);
+    var randomColor = color[randomNumber];
+    let selectColor = String(randomColor);
+    // console.log(selectColor);
+    let docStyle = getComputedStyle(document.documentElement);
+    let myVarVal = docStyle.getPropertyValue('--primary-color');
+    let mainColor = document.querySelector("html");
+    mainColor.style.setProperty('--primary-color', selectColor);
+  });
+</script>
 
 
 <%- include("footer") -%>

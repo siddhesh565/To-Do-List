@@ -4,42 +4,52 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-app.set('view engine','ejs');
+app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/tasklistDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/tasklistDB", {
+  useNewUrlParser: true
+});
 
 
 const defaultSchema = {
-  name: String,
+  name: String
 };
 const Default = mongoose.model("Default", defaultSchema);
-const item1 = new Default ({
-  name:"Add Your Task.."
+const item1 = new Default({
+  name: "Add Your Task..."
 });
 const defaultItems = [item1];
 
 
-app.get("/",function(req,res){
-  Default.find({},function(err,foundtask){
-    if(foundtask.length === 0){
-    Default.insertMany(defaultItems,function(err){
-      if(err){ console.log(err);}
-      else{console.log("Successfully saved to DB.");}
-    });
-    res.redirect("/");
-  } else {
-      res.render("list",{itemsName:foundtask});
-  }
+app.get("/", function(req, res) {
+  Default.find({}, function(err, foundtask) {
+    if (foundtask.length === 0) {
+      Default.insertMany(defaultItems, function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Successfully saved to DB.");
+        }
+      });
+      res.redirect("/");
+    } else {
+      res.render("list", {
+        itemsName: foundtask,
+        itemsLength: (foundtask.length)
+      });
+    }
   });
 });
 
 
-app.post("/",function(req,res){
+app.post("/", function(req, res) {
   const taskName = req.body.newTask;
-  const item = new Default ({
+  const item = new Default({
     name: taskName
   });
   item.save();
@@ -47,11 +57,11 @@ app.post("/",function(req,res){
 });
 
 
-app.post("/delete",function(req,res){
+app.post("/delete", function(req, res) {
   const checkedId = req.body.trashit;
 
-  Default.findByIdAndRemove (checkedId, function(err){
-    if(err){
+  Default.findByIdAndRemove(checkedId, function(err) {
+    if (err) {
       console.log(err);
     } else {
       console.log("Successfully deleted Task..");
@@ -61,11 +71,16 @@ app.post("/delete",function(req,res){
 });
 
 
-app.get("/about",function(req,res){
+app.get("/about", function(req, res) {
   res.render("about");
 });
 
 
-app.listen(3000,function(){
-  console.log("Server started on port 3000");
+app.listen(3000, function(err) {
+  if (err) {
+    console.log(err);
+    alert("somethng went Wrong !!!!");
+  } else {
+    console.log("Server started on port 3000");
+  }
 });
